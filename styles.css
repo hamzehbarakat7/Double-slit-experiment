@@ -1,10 +1,10 @@
 :root{
   --bg:#0b0f16; --panel:#101726; --text:#e6eefc; --muted:#9fb3c8;
-  --accent:#68c1ff; --good:#52d273; --grid:#1d2942; --paper:#fff; --ink:#0b0f16;
+  --accent:#68c1ff; --good:#52d273; --grid:#1d2942;
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
-.theme-light{--bg:#f6f8fb;--panel:#ffffff;--text:#1d2433;--muted:#4b5b77;--accent:#106ad4;--grid:#e8eef6;--paper:#fff;--ink:#111}
+.theme-light{--bg:#f6f8fb;--panel:#ffffff;--text:#1d2433;--muted:#4b5b77;--accent:#106ad4;--grid:#e8eef6}
 header,footer{display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--panel);border-bottom:1px solid rgba(255,255,255,.06)}
 footer{border-top:1px solid rgba(255,255,255,.06);border-bottom:none}
 header h1{font-size:20px;margin:0}
@@ -14,7 +14,7 @@ main{padding:14px;display:flex;flex-direction:column;gap:14px}
 .panel{background:var(--panel);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:10px}
 .row{display:flex;align-items:center;gap:10px}
 .wrap{flex-wrap:wrap}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(210px,1fr));gap:8px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:8px}
 .control{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);padding:10px;border-radius:12px}
 .control label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
 .control input[type="range"]{width:100%}
@@ -25,8 +25,11 @@ main{padding:14px;display:flex;flex-direction:column;gap:14px}
 .strong{border:1px solid var(--accent);background:var(--accent);color:#001;padding:8px 12px;border-radius:10px;cursor:pointer}
 button{user-select:none}
 .stage{display:grid;grid-template-columns:420px 1fr;gap:12px}
+.stage-3d{display:block}
+.hidden{display:none}
 .col{background:var(--panel);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:10px}
 h3{margin:6px 0 10px;font-size:15px;color:var(--muted)}
 canvas{width:100%;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.04));border-radius:12px;border:1px solid rgba(255,255,255,.08)}
 .tiny{font-size:12px}
 .sep{width:12px}
+.only2d{} .only3d{}
