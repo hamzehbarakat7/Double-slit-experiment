@@ -1,72 +1,82 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>محاكاة الشق المزدوج </title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Double-Slit Ultimate — 2D/3D + LaTeX + PDF</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body class="theme-dark">
   <header>
-    <h1>محاكاة الشقّ المزدوج</h1>
+    <h1>محاكاة الشقّ المزدوج — Ultimate (2D/3D)</h1>
     <div class="spacer"></div>
-    <button id="themeBtn" title="تبديل الوضع: نهاري/ليلي">🌙/☀️</button>
+    <button id="themeBtn" title="تبديل نهاري/ليلي">🌙/☀️</button>
   </header>
 
   <main>
     <section class="panel">
       <div class="row wrap">
-        <label>الوضع الفيزيائي:</label>
-        <label class="chip"><input type="radio" name="regime" value="fraunhofer" checked> فرينهوفر (بعيد)</label>
-        <label class="chip"><input type="radio" name="regime" value="fresnel"> فرينل (قريب/دقيق)</label>
+        <label>العرض:</label>
+        <label class="chip"><input type="radio" name="view" value="2d" checked> 2D</label>
+        <label class="chip"><input type="radio" name="view" value="3d"> 3D</label>
+
         <div class="sep"></div>
-        <label>أسلوب العرض:</label>
+        <label>الفيزياء:</label>
+        <label class="chip"><input type="radio" name="regime" value="fraunhofer" checked> فرينهوفر (بعيد)</label>
+        <label class="chip"><input type="radio" name="regime" value="fresnel"> فرينل (قريب/هويجنز)</label>
+
+        <div class="sep"></div>
+        <label>أسلوب العرض (2D):</label>
         <label class="chip"><input type="radio" name="mode" value="wave" checked> موجي</label>
-        <label class="chip"><input type="radio" name="mode" value="particles"> جسيمات متتابعة</label>
+        <label class="chip"><input type="radio" name="mode" value="particles"> جسيمات</label>
         <label class="chip"><input id="spectrum" type="checkbox"> طيف أبيض (RGB)</label>
       </div>
 
       <div class="grid">
         <div class="control">
-          <label for="lambda">الطول الموجي λ (نانو متر)</label>
+          <label for="lambda">الطول الموجي λ (nm)</label>
           <input id="lambda" type="range" min="380" max="700" step="1" value="550">
           <div class="val"><span id="lambdaVal">550</span> nm</div>
         </div>
-
         <div class="control">
           <label for="d">المسافة بين الشقين d (µm)</label>
-          <input id="d" type="range" min="5" max="500" step="1" value="100">
-          <div class="val"><span id="dVal">100</span> μm</div>
+          <input id="d" type="range" min="5" max="500" step="1" value="120">
+          <div class="val"><span id="dVal">120</span> μm</div>
         </div>
-
         <div class="control">
           <label for="a">عرض الشق a (µm)</label>
           <input id="a" type="range" min="2" max="200" step="1" value="20">
           <div class="val"><span id="aVal">20</span> μm</div>
         </div>
-
         <div class="control">
-          <label for="L">بُعد الشاشة L (متر)</label>
-          <input id="L" type="range" min="0.1" max="5" step="0.01" value="1">
+          <label for="L">بُعد الشاشة L (m)</label>
+          <input id="L" type="range" min="0.1" max="5" step="0.01" value="1.00">
           <div class="val"><span id="LVal">1.00</span> m</div>
         </div>
-
         <div class="control">
-          <label for="coh">عامل التماسك γ (0–1)</label>
+          <label for="coh">عامل التماسك γ</label>
           <input id="coh" type="range" min="0" max="1" step="0.01" value="1">
           <div class="val"><span id="cohVal">1.00</span></div>
         </div>
-
-        <div class="control">
-          <label for="rate">عدد الجسيمات/الثانية</label>
+        <div class="control only2d">
+          <label for="rate">الجسيمات/ث (2D)</label>
           <input id="rate" type="range" min="10" max="8000" step="10" value="800">
           <div class="val"><span id="rateVal">800</span> /s</div>
         </div>
-
-        <div class="control">
-          <label for="quality">جودة فرينل (نِقاط/شق)</label>
+        <div class="control only2d">
+          <label for="quality">جودة فرينل (عينات/شق)</label>
           <input id="quality" type="range" min="32" max="512" step="32" value="160">
           <div class="val"><span id="qualityVal">160</span> عينات</div>
+        </div>
+        <div class="control">
+          <label for="span">مجال الشاشة ±Xmax (cm)</label>
+          <input id="span" type="range" min="0.5" max="8" step="0.1" value="3.0">
+          <div class="val">±<span id="spanVal">3.0</span> cm</div>
+        </div>
+        <div class="control only3d">
+          <label for="res">دقّة تكستشر 3D (px)</label>
+          <input id="res" type="range" min="256" max="1024" step="128" value="512">
+          <div class="val"><span id="resVal">512</span> px</div>
         </div>
       </div>
 
@@ -74,52 +84,64 @@
         <label class="chip"><input id="slit1" type="checkbox" checked> الشق الأيسر فعّال</label>
         <label class="chip"><input id="slit2" type="checkbox" checked> الشق الأيمن فعّال</label>
         <label class="chip"><input id="normalize" type="checkbox" checked> تطبيع الشدة</label>
-        <label class="chip"><input id="showCurve" type="checkbox" checked> إظهار منحنى الشدة</label>
-        <label class="chip"><input id="autoSpan" type="checkbox" checked> احتواء تلقائي للمجال على الشاشة</label>
+        <label class="chip"><input id="showCurve" type="checkbox" checked> إظهار منحنى الشدة (2D)</label>
+        <label class="chip"><input id="autoSpan" type="checkbox" checked> احتواء تلقائي (2D)</label>
+        <div class="spacer"></div>
+        <span class="tiny">FPS: <span id="fps">0</span></span>
       </div>
 
       <div class="row wrap">
         <span class="muted">مسبقة الإعداد:</span>
-        <button class="pill" data-preset="red">ليزر أحمر</button>
-        <button class="pill" data-preset="green">ليزر أخضر</button>
-        <button class="pill" data-preset="blue">ليزر أزرق</button>
+        <button class="pill" data-preset="red">أحمر</button>
+        <button class="pill" data-preset="green">أخضر</button>
+        <button class="pill" data-preset="blue">أزرق</button>
         <button class="pill" data-preset="electron">إلكترونات</button>
         <div class="spacer"></div>
-        <div class="tiny">fps: <span id="fps">0</span></div>
+        <button id="toggleRun" class="strong only2d">⏯ جسيمات 2D تشغيل/إيقاف</button>
+        <button id="step" class="only2d">⏭ خطوة جسيمات 2D</button>
+        <button id="toggleRun3D" class="strong only3d">⏯ جسيمات 3D تشغيل/إيقاف</button>
       </div>
 
       <div class="row wrap">
-        <button id="toggleRun" class="strong">⏯ تشغيل/إيقاف الجسيمات</button>
-        <button id="step">⏭ خطوة واحدة</button>
-        <button id="resetBtn">↺ تصفير الشاشة</button>
+        <button id="resetBtn">↺ تصفير</button>
         <button id="snapBtn">📷 حفظ صورة</button>
         <button id="csvBtn">📄 تصدير CSV</button>
+        <button id="latexBtn">🧮 تصدير LaTeX</button>
+        <button id="pdfBtn">🖨️ PDF / طباعة</button>
         <span class="tiny muted">اختصارات: Space/R/S/C/T</span>
       </div>
     </section>
 
-    <section class="stage">
+    <!-- 2D -->
+    <section class="stage stage-2d">
       <div class="col">
         <h3>المنظر الجانبي (شقوق ← شاشة)</h3>
         <canvas id="sideView" width="420" height="320"></canvas>
       </div>
-
       <div class="col">
         <h3>شاشة الرصد (شدة/نقاط)</h3>
         <canvas id="screen" width="900" height="360"></canvas>
+      </div>
+    </section>
+
+    <!-- 3D -->
+    <section class="stage stage-3d hidden">
+      <canvas id="glcanvas" width="1100" height="560"></canvas>
+      <div class="tiny muted" style="margin-top:6px">
+        الماوس: سحب=مدار، عجلة=Zoom، Shift+سحب=تحريك — زرّ <b>↺ تصفير</b> يعيد تموضع الكاميرا.
       </div>
     </section>
   </main>
 
   <footer>
     <small class="muted">
-      فرينهوفر: \(I \propto \mathrm{sinc}^2(\beta)\,[1+\gamma\cos(\Delta\phi)]\), 
-      فرينل: \(I \propto |E_1+E_2|^2\) مع \(E_i=\int_{\text{شق}_i}\frac{e^{ikr}}{r}dy\).
+      فرينهوفر: \(I = I_0\,\mathrm{sinc}^2(\beta)\,[1+\gamma\cos(\Delta\phi)]\),
+      \(\beta=\frac{\pi a x}{\lambda L}\), \(\Delta\phi=\frac{2\pi d x}{\lambda L}\).  
+      فرينل (هويجنز): \(I \propto |E_1+E_2|^2\), \(E_i=\int_{\text{شق}_i}\tfrac{e^{ikr}}{r}\,dy\), \(k=2\pi/\lambda\).  
+      3D: نفس الفيزياء تُعرض كتكسشر على الشاشة + مساطر ومحاور XYZ + جسيمات ثلاثية الأبعاد.
     </small>
   </footer>
 
   <script src="app.js"></script>
 </body>
 </html>
-
-
